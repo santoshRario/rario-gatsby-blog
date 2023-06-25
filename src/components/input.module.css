@@ -1,0 +1,20 @@
+.searchBox {
+  align-items: flex-end;
+  display: flex;
+  margin: 0 auto;
+  max-width: var(--size-max-width);
+  min-height: 50px;
+  padding: var(--space-2xl) var(--size-gutter);
+}
+
+.input {
+  max-width: 400px;
+  width: 100%;
+  padding: var(--space-lg) var(--space-md);
+  position: relative;
+  border-radius: var(--radius-md);
+  border-color: var(--black-fade-5);
+  letter-spacing: 0.05em;
+  font-size: var(--text-md);
+  line-height: var(--solid);
+}

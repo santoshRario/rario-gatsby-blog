@@ -8,8 +8,16 @@ import Tags from './tags'
 import * as styles from './article-preview.module.css'
 
 const ArticlePreview = ({ posts }) => {
-  if (!posts) return null
-  if (!Array.isArray(posts)) return null
+  if (!posts || !Array.isArray(posts)) return null
+
+  if (posts.length === 0) {
+    return (
+      <div className={styles.noArticle}>
+        <h3>No exact result found</h3>
+        <h4>Try searching something different</h4>
+      </div>
+    )
+  }
 
   return (
     <Container>

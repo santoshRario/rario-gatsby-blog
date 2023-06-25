@@ -6,18 +6,27 @@ import SEOHead from '../components/seo-head'
 import Layout from '../components/layout'
 import Hero from '../components/hero'
 import ArticlePreview from '../components/article-preview'
+import Input from '../components/input'
 
-class BlogIndex extends React.Component {
-  render() {
-    const posts = get(this, 'props.data.allContentfulBlogPost.nodes')
+const BlogIndex = (props) => {
+  const [searchQuery, setSearchQuery] = React.useState('');
+  
+  const posts = get(props, 'data.allContentfulBlogPost.nodes')
 
+  const filteredPosts = posts.filter(p => {
     return (
-      <Layout location={this.props.location}>
-        <Hero title="Blog" />
-        <ArticlePreview posts={posts} />
-      </Layout>
+      p.title.toLowerCase().includes(searchQuery) ||
+      p.tags.join('').toLowerCase().includes(searchQuery)
     )
-  }
+  })
+
+  return (
+    <Layout location={props.location}>
+      <Hero title="Blogs" />
+      <Input onChange={(e) => setSearchQuery(e.target.value?.toLowerCase())}/>
+      <ArticlePreview posts={filteredPosts} />
+    </Layout>
+  )
 }
 
 export default BlogIndex
