@@ -3,15 +3,19 @@ import React from 'react'
 import * as styles from './input.module.css'
 
 const Input = ({ onChange }) => (
-  <div className={styles.searchBox}>
-    <input
-      className={styles.input}
-      type="search"
-      aria-label="Search"
-      placeholder="Filter blogs by title or tag"
-      onChange={(e) => onChange(e)}
-    />
-  </div>
+  <form method='get' action='/'>
+    <div className={styles.searchBox}>
+      <input
+        className={styles.input}
+        type="search"
+        name='s'
+        aria-label="Search"
+        placeholder="Search by Title or Tag"
+        onChange={(e) => onChange(e)}
+      />
+      <button className={styles.button}>Search</button>
+    </div>
+  </form>
 )
 
 export default Input

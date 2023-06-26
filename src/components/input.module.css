@@ -8,7 +8,7 @@
 }
 
 .input {
-  max-width: 400px;
+  max-width: 350px;
   width: 100%;
   padding: var(--space-lg) var(--space-md);
   position: relative;
@@ -17,4 +17,17 @@
   letter-spacing: 0.05em;
   font-size: var(--text-md);
   line-height: var(--solid);
+}
+
+.button {
+  border-radius: var(--radius-md);
+  background-color: var(--primary);
+  border-color: var(--black-fade-5);
+  letter-spacing: 0.05em;
+  color: var(--white);
+  font-size: var(--text-md);
+  line-height: var(--solid);
+  padding: var(--space-lg) var(--space-md);
+  margin-left: var(--space-sm);
+  cursor: pointer;
 }

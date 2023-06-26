@@ -1,30 +1,39 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import get from 'lodash/get'
+// import get from 'lodash/get'
 
 import SEOHead from '../components/seo-head'
 import Layout from '../components/layout'
 import Hero from '../components/hero'
 import ArticlePreview from '../components/article-preview'
 import Input from '../components/input'
+import { useFlexSearch } from 'react-use-flexsearch';
 
-const BlogIndex = (props) => {
-  const [searchQuery, setSearchQuery] = React.useState('');
+const unFlattenResults = results =>
+  results.map(post => {
+      const { title, slug, tags, publishDate, description, layout, placeholder, width, height } = post;
+      return { title, slug, publishDate, tags, heroImage: { gatsbyImage: { layout, placeholder, width, height } }, description: { raw: description } };
+  });
+
+const BlogIndex = ({
+  data: {
+    localSearchPages: { index, store },
+    allContentfulBlogPost: { nodes },
+    location
+},
+}) => {
+  const { search } = window.location;
+  const query = new URLSearchParams(search).get('s')
+  const [searchQuery, setSearchQuery] = React.useState(query || '');
   
-  const posts = get(props, 'data.allContentfulBlogPost.nodes')
-
-  const filteredPosts = posts.filter(p => {
-    return (
-      p.title.toLowerCase().includes(searchQuery) ||
-      p.tags.join('').toLowerCase().includes(searchQuery)
-    )
-  })
+  const results = useFlexSearch(searchQuery, index, store);
+  const posts = searchQuery ? unFlattenResults(results) : nodes
 
   return (
-    <Layout location={props.location}>
+    <Layout location={location}>
       <Hero title="Blogs" />
       <Input onChange={(e) => setSearchQuery(e.target.value?.toLowerCase())}/>
-      <ArticlePreview posts={filteredPosts} />
+      <ArticlePreview posts={posts} />
     </Layout>
   )
 }
@@ -36,7 +45,11 @@ export const Head = () => {
 }
 
 export const pageQuery = graphql`
-  query BlogIndexQuery {
+  query {
+    localSearchPages {
+      index
+      store
+    }
     allContentfulBlogPost(sort: { publishDate: DESC }) {
       nodes {
         title

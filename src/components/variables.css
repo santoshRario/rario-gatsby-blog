@@ -12,6 +12,7 @@
   --white: #fff;
   --black: #000;
   --black-fade-5: rgba(0, 0, 0, 0.05);
+  --primary: rgba(0, 90, 255, 0.5);
 
   /* radii */
   --radius-sm: 4px;
