@@ -15,6 +15,8 @@ const unFlattenResults = results =>
       return { title, slug, publishDate, tags, heroImage: { gatsbyImage: { layout, placeholder, width, height } }, description: { raw: description } };
   });
 
+const isBrowser = () => typeof window !== "undefined"
+
 const BlogIndex = ({
   data: {
     localSearchPages: { index, store },
@@ -22,7 +24,7 @@ const BlogIndex = ({
     location
 },
 }) => {
-  const { search } = window.location;
+  const { search } = isBrowser() ? window.location : { search: '' };
   const query = new URLSearchParams(search).get('s')
   const [searchQuery, setSearchQuery] = React.useState(query || '');
   
