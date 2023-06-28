@@ -50,7 +50,7 @@ module.exports = {
           `,
           ref: 'slug',
           index: ['title', 'tags'],
-          store: ['title', 'tags', 'publishDate', 'description', 'layout', 'placeholder', 'width', 'height'],
+          store: ['title', 'slug', 'tags', 'publishDate', 'description', 'layout', 'placeholder', 'width', 'height'],
           normalizer: ({ data }) =>
           data.allContentfulBlogPost.nodes.map(node => ({
               title: node.title,

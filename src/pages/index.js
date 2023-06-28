@@ -34,7 +34,7 @@ const BlogIndex = ({
   return (
     <Layout location={location}>
       <Hero title="Blogs" />
-      <Input onChange={(e) => setSearchQuery(e.target.value?.toLowerCase())}/>
+      <Input searchQuery={searchQuery} onChange={(e) => setSearchQuery(e.target.value?.toLowerCase())}/>
       <ArticlePreview posts={posts} />
     </Layout>
   )
