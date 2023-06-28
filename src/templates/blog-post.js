@@ -3,7 +3,7 @@ import { graphql } from 'gatsby'
 import get from 'lodash/get'
 import { renderRichText } from 'gatsby-source-contentful/rich-text'
 import { documentToPlainTextString } from '@contentful/rich-text-plain-text-renderer'
-import { BLOCKS } from '@contentful/rich-text-types'
+import { BLOCKS, INLINES } from '@contentful/rich-text-types'
 import { GatsbyImage, getImage } from 'gatsby-plugin-image'
 import readingTime from 'reading-time'
 
@@ -22,6 +22,26 @@ class BlogPostTemplate extends React.Component {
     
     const options = {
       renderNode: {
+        [INLINES.HYPERLINK]: (node) => {
+          const url = node?.data?.uri
+          if(url && url.includes('youtube')) {
+            return (
+              <iframe
+                title={'video'}
+                src={url}
+                width='400px'
+                height={'300px'}
+                frameBorder={0}
+                allowfullscreen={1}
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              />
+            )
+          } else {
+            return (
+              <a href={node?.data.uri}>{node.content?.[0].value}</a>
+            )
+          }
+        },
         [BLOCKS.EMBEDDED_ASSET]: (node) => {
         const { gatsbyImage, description } = node.data.target
         return (
