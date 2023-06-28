@@ -89,6 +89,15 @@ export const pageQuery = graphql`
       }
       body {
         raw
+        references {
+          ... on ContentfulAsset {
+            contentful_id
+            title
+            description
+            gatsbyImage(width: 400)
+            __typename
+          }
+        }
       }
       tags
       description {
