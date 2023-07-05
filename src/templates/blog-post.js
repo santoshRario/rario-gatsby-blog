@@ -18,6 +18,7 @@ class BlogPostTemplate extends React.Component {
     const plainTextBody = documentToPlainTextString(JSON.parse(post.body.raw))
     const { minutes: timeToRead } = readingTime(plainTextBody)
 
+    console.log(post)
     return (
       <Layout location={this.props.location}>
         <Hero
@@ -81,6 +82,11 @@ export const pageQuery = graphql`
             gatsbyImage(width: 400)
             __typename
           }
+        }
+      }
+      test {
+        childMarkdownRemark {
+          html
         }
       }
       tags

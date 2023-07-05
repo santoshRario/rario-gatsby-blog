@@ -11,6 +11,7 @@ module.exports = {
     "gatsby-transformer-sharp",
     "gatsby-plugin-sharp",
     "gatsby-plugin-image",
+    "gatsby-transformer-remark",
     {
       resolve: "gatsby-source-contentful",
       options: {
